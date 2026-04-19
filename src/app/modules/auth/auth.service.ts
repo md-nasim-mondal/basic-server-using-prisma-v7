@@ -6,6 +6,10 @@ import {config} from "../../../config";
 import { jwtHelpers } from "../../../helpers/jwtHelpers";
 import {prisma} from "../../../shared/prisma";
 import ApiError from "../../errors/ApiError";
+/**
+ * AuthService handles all authentication-related business logic, 
+ * including registration, login, token management, and password recovery.
+ */
 import emailSender from "../../utils/emailSender";
 
 // 1. Register User (With Email Verification)

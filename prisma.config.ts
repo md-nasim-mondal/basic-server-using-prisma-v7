@@ -1,17 +1,17 @@
 // prisma.config.ts
 import { defineConfig } from '@prisma/config';
-import 'dotenv/config'; // .env ফাইল লোড করার জন্য জরুরি
+import 'dotenv/config'; // Essential for loading the .env file
 
 export default defineConfig({
-  // স্কিমা ফাইলের লোকেশন (এখন ফোল্ডার বা ফাইল পাথ হতে পারে)
+  // Schema file location (can be a folder or file path)
   schema: 'prisma/schema',
   
-  // ডাটাবেস কানেকশন এখানেই দিতে হবে
+  // Database connection settings
   datasource: {
     url: process.env.DATABASE_URL, 
   },
   
-  // ক্লায়েন্ট জেনারেশন আউটপুট (Optional, ডিফল্ট node_modules)
+  // Client generation output (Optional, defaults to node_modules)
   // generator: {
   //   output: 'node_modules/.prisma/client',
   // }

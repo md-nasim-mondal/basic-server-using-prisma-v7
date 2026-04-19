@@ -1,7 +1,9 @@
+// Prisma Client Generator: Defines how the Prisma Client is generated
 generator client {
   provider = "prisma-client-js"
 }
 
+// Database Connection: Configuration for the database provider
 datasource db {
   provider = "postgresql"
 }

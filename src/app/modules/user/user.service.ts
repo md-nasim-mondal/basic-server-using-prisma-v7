@@ -10,6 +10,11 @@ import { paginationHelper } from "../../../helpers/paginationHelper";
 import { userSearchAbleFields } from "./user.constant";
 import ApiError from "../../errors/ApiError";
 
+/**
+ * UserService handles all user-related business logic, 
+ * such as profile management, role updates, and user status changes.
+ */
+
 // 1. Create Admin (Only by Super Admin)
 const createAdmin = async (req: Request) => {
   const file = req.file;
