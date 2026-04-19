@@ -2,26 +2,17 @@
 enum UserRole {
   SUPER_ADMIN
   ADMIN
-  GUIDE
-  TOURIST
+  USER
 }
 
 enum UserStatus {
   ACTIVE
-  INACTIVE
-  DELETED
   BLOCKED
+  DELETED
 }
 
 enum Gender {
   MALE
   FEMALE
-}
-
-// Booking Status
-enum BookingStatus {
-  PENDING
-  CONFIRMED
-  CANCELLED
-  COMPLETED
+  OTHER
 }

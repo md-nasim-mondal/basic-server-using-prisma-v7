@@ -48,76 +48,56 @@ const loadEnvVariables = (): EnvConfig => {
     "NODE_ENV",
     "PORT",
     "DATABASE_URL",
-    "CLIENT_URL",
-    "OPEN_ROUTER_API_KEY",
-    "STRIPE_SECRET_KEY",
-    "STRIPE_WEBHOOK_SECRET",
-    "RESET_PASS_LINK",
-    "SALT_ROUND",
     "JWT_SECRET",
-    "ACCESS_TOKEN_EXPIRES_IN",
-    "REFRESH_TOKEN_SECRET",
-    "REFRESH_TOKEN_EXPIRES_IN",
-    "RESET_PASS_SECRET",
-    "RESET_PASS_TOKEN_EXPIRES_IN",
-    "CLOUDINARY_CLOUD_NAME",
-    "CLOUDINARY_API_KEY",
-    "CLOUDINARY_API_SECRET",
-    "EMAIL_SENDER_EMAIL",
-    "EMAIL_SENDER_APP_PASS",
-    "STORE_ID",
-    "STORE_PASS",
-    "SSL_PAYMENT_API",
-    "SSL_VALIDATION_API",
-    "SUCCESS_URL",
-    "CANCEL_URL",
-    "FAIL_URL",
   ];
 
   requiredEnvVariables.forEach((key) => {
     if (!process.env[key]) {
-      throw new Error(`Missing required environment variable: ${key}`);
+      // eslint-disable-next-line no-console
+      console.warn(`⚠️ Missing required environment variable: ${key}`);
+      if (key === "DATABASE_URL" || key === "JWT_SECRET") {
+        throw new Error(`CRITICAL: Missing required environment variable: ${key}`);
+      }
     }
   });
 
   return {
-    NODE_ENV: process.env.NODE_ENV as "development" | "production",
-    PORT: process.env.PORT as string,
+    NODE_ENV: (process.env.NODE_ENV as "development" | "production") || "development",
+    PORT: process.env.PORT || "5000",
     DATABASE_URL: process.env.DATABASE_URL as string,
-    CLIENT_URL: process.env.CLIENT_URL as string,
-    OPEN_ROUTER_API_KEY: process.env.OPEN_ROUTER_API_KEY as string,
-    STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY as string,
-    STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET as string,
-    RESET_PASS_LINK: process.env.RESET_PASS_LINK as string,
+    CLIENT_URL: process.env.CLIENT_URL || "http://localhost:3000",
+    OPEN_ROUTER_API_KEY: process.env.OPEN_ROUTER_API_KEY || "",
+    STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY || "",
+    STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET || "",
+    RESET_PASS_LINK: process.env.RESET_PASS_LINK || "",
     bcrypt: {
-      SALT_ROUND: process.env.SALT_ROUND as string,
+      SALT_ROUND: process.env.SALT_ROUND || "12",
     },
     jwt: {
-      JWT_SECRET: process.env.JWT_SECRET as string,
-      ACCESS_TOKEN_EXPIRES_IN: process.env.ACCESS_TOKEN_EXPIRES_IN as string,
-      REFRESH_TOKEN_SECRET: process.env.REFRESH_TOKEN_SECRET as string,
-      REFRESH_TOKEN_EXPIRES_IN: process.env.REFRESH_TOKEN_EXPIRES_IN as string,
-      RESET_PASS_SECRET: process.env.RESET_PASS_SECRET as string,
-      RESET_PASS_TOKEN_EXPIRES_IN: process.env
-        .RESET_PASS_TOKEN_EXPIRES_IN as string,
+      JWT_SECRET: process.env.JWT_SECRET || "secret",
+      ACCESS_TOKEN_EXPIRES_IN: process.env.ACCESS_TOKEN_EXPIRES_IN || "1d",
+      REFRESH_TOKEN_SECRET: process.env.REFRESH_TOKEN_SECRET || "refresh-secret",
+      REFRESH_TOKEN_EXPIRES_IN: process.env.REFRESH_TOKEN_EXPIRES_IN || "30d",
+      RESET_PASS_SECRET: process.env.RESET_PASS_SECRET || "reset-secret",
+      RESET_PASS_TOKEN_EXPIRES_IN: process.env.RESET_PASS_TOKEN_EXPIRES_IN || "10m",
     },
     cloudinary: {
-      CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME as string,
-      CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY as string,
-      CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET as string,
+      CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME || "",
+      CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY || "",
+      CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET || "",
     },
     emailSender: {
-      EMAIL: process.env.EMAIL_SENDER_EMAIL as string,
-      APP_PASS: process.env.EMAIL_SENDER_APP_PASS as string,
+      EMAIL: process.env.EMAIL_SENDER_EMAIL || "",
+      APP_PASS: process.env.EMAIL_SENDER_APP_PASS || "",
     },
     ssl: {
-      STORE_ID: process.env.STORE_ID as string,
-      STORE_PASS: process.env.STORE_PASS as string,
-      SSL_PAYMENT_API: process.env.SSL_PAYMENT_API as string,
-      SSL_VALIDATION_API: process.env.SSL_VALIDATION_API as string,
-      SUCCESS_URL: process.env.SUCCESS_URL as string,
-      CANCEL_URL: process.env.CANCEL_URL as string,
-      FAIL_URL: process.env.FAIL_URL as string,
+      STORE_ID: process.env.STORE_ID || "",
+      STORE_PASS: process.env.STORE_PASS || "",
+      SSL_PAYMENT_API: process.env.SSL_PAYMENT_API || "",
+      SSL_VALIDATION_API: process.env.SSL_VALIDATION_API || "",
+      SUCCESS_URL: process.env.SUCCESS_URL || "",
+      CANCEL_URL: process.env.CANCEL_URL || "",
+      FAIL_URL: process.env.FAIL_URL || "",
     },
   };
 };

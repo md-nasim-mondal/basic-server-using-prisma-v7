@@ -26,7 +26,7 @@ app.use("/api/v1", router);
 // Test Route
 app.get("/", (req: Request, res: Response) => {
   res.send({
-    message: "Tourify Server is Running 🚀",
+    message: "Basic Server is Running 🚀",
     timestamp: new Date().toISOString(),
   });
 });

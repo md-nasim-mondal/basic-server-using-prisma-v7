@@ -10,16 +10,6 @@ const createAdminValidation = z.object({
   }),
 });
 
-const createGuideValidation = z.object({
-  password: z.string().min(6),
-  guide: z.object({
-    name: z.string(),
-    email: z.string().email(),
-    contactNo: z.string(),
-    bio: z.string().optional(),
-    address: z.string().optional(),
-  }),
-});
 
 const updateStatusValidation = z.object({
   body: z.object({
@@ -29,13 +19,12 @@ const updateStatusValidation = z.object({
 
 const updateRoleValidation = z.object({
   body: z.object({
-    role: z.enum([UserRole.SUPER_ADMIN, UserRole.ADMIN, UserRole.GUIDE, UserRole.TOURIST]),
+    role: z.enum([UserRole.SUPER_ADMIN, UserRole.ADMIN, UserRole.USER]),
   }),
 });
 
 export const UserValidation = {
   createAdminValidation,
-  createGuideValidation,
   updateStatusValidation,
   updateRoleValidation,
 };

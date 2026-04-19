@@ -8,7 +8,7 @@ let server: Server;
 async function main() {
   try {
     server = app.listen(config.PORT, () => {
-      console.log(`🚀 Tourify Server is running on port ${config.PORT}`);
+      console.log(`🚀 Server is running on port ${config.PORT}`);
     });
 
     // Optional: Seed Super Admin

@@ -17,16 +17,6 @@ const createAdmin = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-const createGuide = catchAsync(async (req: Request, res: Response) => {
-  const result = await UserService.createGuide(req);
-  sendResponse(res, {
-    statusCode: httpStatus.CREATED,
-    success: true,
-    message: "Guide created successfully!",
-    data: result,
-  });
-});
-
 const getAllUsers = catchAsync(async (req: Request, res: Response) => {
   const filters = pick(req.query, userFilterableFields);
   const options = pick(req.query, ["limit", "page", "sortBy", "sortOrder"]);
@@ -100,7 +90,6 @@ const changeUserRole = catchAsync(
 
 export const UserController = {
   createAdmin,
-  createGuide,
   getAllUsers,
   getMyProfile,
   updateMyProfile,

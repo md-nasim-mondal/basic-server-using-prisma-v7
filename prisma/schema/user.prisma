@@ -3,7 +3,7 @@ model User {
   email              String     @unique
   password           String?   
   name               String
-  role               UserRole   @default(TOURIST)
+  role               UserRole   @default(USER)
   needPasswordChange Boolean    @default(false)
   status             UserStatus @default(ACTIVE)
   isVerified         Boolean    @default(false)
@@ -15,11 +15,6 @@ model User {
 
   createdAt          DateTime   @default(now())
   updatedAt          DateTime   @updatedAt
-
-  // Relations
-  listings           Listing[]
-  bookings           Booking[]
-  reviews            Review[]
 
   @@map("users")
 }

@@ -8,7 +8,7 @@ import {prisma} from "../../../shared/prisma";
 import ApiError from "../../errors/ApiError";
 import emailSender from "../../utils/emailSender";
 
-// 1. Register Tourist (With Email Verification)
+// 1. Register User (With Email Verification)
 const registerUser = async (payload: any) => {
   const isExist = await prisma.user.findUnique({
     where: { email: payload.email },
@@ -23,13 +23,13 @@ const registerUser = async (payload: any) => {
     Number(config.bcrypt.SALT_ROUND)
   );
 
-  // Default Role: TOURIST, Status: ACTIVE, Verified: FALSE
+  // Default Role: USER, Status: ACTIVE, Verified: FALSE
   const newUser = await prisma.user.create({
     data: {
       email: payload.email,
       password: hashedPassword,
       name: payload.name,
-      role: UserRole.TOURIST,
+      role: UserRole.USER,
       status: UserStatus.ACTIVE,
       isVerified: false, 
       contactNo: payload.contactNo,
@@ -50,8 +50,8 @@ const registerUser = async (payload: any) => {
     newUser.email,
     `
     <div style="font-family: Arial, sans-serif; padding: 20px;">
-      <h2>Welcome to Tourify, ${newUser.name}!</h2>
-      <p>Please verify your email address to start your journey.</p>
+      <h2>Welcome, ${newUser.name}!</h2>
+      <p>Please verify your email address to get started.</p>
       <a href="${verifyLink}" style="padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px;">Verify Email</a>
     </div>
     `

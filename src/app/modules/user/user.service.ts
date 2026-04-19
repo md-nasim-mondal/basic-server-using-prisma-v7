@@ -38,37 +38,7 @@ const createAdmin = async (req: Request) => {
   });
 };
 
-// 2. Create Guide (By Admin/Super Admin)
-const createGuide = async (req: Request) => {
-  const file = req.file;
-  let profilePhoto = "";
-  if (file) {
-    const uploaded = await fileUploader.uploadToCloudinary(file);
-    profilePhoto = uploaded?.secure_url || "";
-  }
-
-  const hashedPassword = await bcrypt.hash(
-    req.body.password,
-    Number(config.bcrypt.SALT_ROUND)
-  );
-
-  return await prisma.user.create({
-    data: {
-      email: req.body.guide.email,
-      password: hashedPassword,
-      name: req.body.guide.name,
-      contactNo: req.body.guide.contactNo,
-      bio: req.body.guide.bio,
-      address: req.body.guide.address,
-      role: UserRole.GUIDE,
-      status: UserStatus.ACTIVE,
-      isVerified: true,
-      photo: profilePhoto,
-    },
-  });
-};
-
-// 3. Get All Users
+// 2. Get All Users
 const getAllUsers = async (params: any, options: any) => {
   const { page, limit, skip } = paginationHelper.calculatePagination(options);
   const { searchTerm, ...filterData } = params;
@@ -116,7 +86,7 @@ const getAllUsers = async (params: any, options: any) => {
   return { meta: { page, limit, total }, data: result };
 };
 
-// 4. Get My Profile
+// 3. Get My Profile
 const getMyProfile = async (user: IAuthUser) => {
   return await prisma.user.findUniqueOrThrow({
     where: { email: user?.email as string, status: UserStatus.ACTIVE },
@@ -136,7 +106,7 @@ const getMyProfile = async (user: IAuthUser) => {
   });
 };
 
-// 5. Update My Profile
+// 4. Update My Profile
 const updateMyProfile = async (user: IAuthUser, req: Request) => {
   const userInfo = await prisma.user.findUniqueOrThrow({
     where: { email: user?.email as string, status: UserStatus.ACTIVE },
@@ -154,7 +124,7 @@ const updateMyProfile = async (user: IAuthUser, req: Request) => {
   });
 };
 
-// 6. Change User Status (With Security Check)
+// 5. Change User Status (With Security Check)
 const changeUserStatus = async (
   id: string,
   status: UserStatus,
@@ -179,7 +149,7 @@ const changeUserStatus = async (
   });
 };
 
-// 7. Change User Role (With Security Check)
+// 6. Change User Role (With Security Check)
 const changeUserRole = async (
   id: string,
   role: UserRole,
@@ -206,7 +176,6 @@ const changeUserRole = async (
 
 export const UserService = {
   createAdmin,
-  createGuide,
   getAllUsers,
   getMyProfile,
   updateMyProfile,
