@@ -10,7 +10,6 @@ const createAdminValidation = z.object({
   }),
 });
 
-
 const updateStatusValidation = z.object({
   body: z.object({
     status: z.enum([UserStatus.ACTIVE, UserStatus.BLOCKED]),

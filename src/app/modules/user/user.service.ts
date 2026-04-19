@@ -11,7 +11,7 @@ import { userSearchAbleFields } from "./user.constant";
 import ApiError from "../../errors/ApiError";
 
 /**
- * UserService handles all user-related business logic, 
+ * UserService handles all user-related business logic,
  * such as profile management, role updates, and user status changes.
  */
 

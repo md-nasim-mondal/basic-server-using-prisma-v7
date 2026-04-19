@@ -13,7 +13,6 @@ async function main() {
 
     // Optional: Seed Super Admin
     // await seedSuperAdmin();
-
   } catch (err) {
     console.log("Error starting server:", err);
   }

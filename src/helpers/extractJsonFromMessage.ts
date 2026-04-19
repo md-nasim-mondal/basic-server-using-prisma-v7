@@ -24,10 +24,16 @@ export const extractJsonFromMessage = (message: any) => {
 
       // Try to fix missing closing brackets
       let fixedJson = jsonCandidate;
-      if ((fixedJson.match(/\{/g) || []).length !== (fixedJson.match(/\}/g) || []).length) {
+      if (
+        (fixedJson.match(/\{/g) || []).length !==
+        (fixedJson.match(/\}/g) || []).length
+      ) {
         fixedJson += "}";
       }
-      if ((fixedJson.match(/\[/g) || []).length !== (fixedJson.match(/\]/g) || []).length) {
+      if (
+        (fixedJson.match(/\[/g) || []).length !==
+        (fixedJson.match(/\]/g) || []).length
+      ) {
         fixedJson += "]";
       }
 

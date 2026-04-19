@@ -44,7 +44,7 @@ router.patch(
   fileUploader.upload.single("file"),
   (req: Request, res: Response, next: NextFunction) => {
     if (req.body.data) {
-       req.body = JSON.parse(req.body.data);
+      req.body = JSON.parse(req.body.data);
     }
     next();
   },

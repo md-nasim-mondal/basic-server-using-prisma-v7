@@ -5,10 +5,10 @@ import eslintConfigPrettier from "eslint-config-prettier";
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
-  // 1. Kon file gulo lint korbe (Shudhu src folder er ts file)
+  // 1. Files to lint (only TypeScript files in the src folder)
   { files: ["src/**/*.ts"] },
 
-  // 2. Kon folder gulo ignore korbe
+  // 2. Folders to ignore
   { ignores: ["dist", "node_modules", "coverage"] },
 
   // 3. Base Configurations
@@ -19,29 +19,29 @@ export default [
   {
     languageOptions: {
       globals: {
-        ...globals.node, // Node.js globals jemon process, __dirname support korar jonno
+        ...globals.node, // Support for Node.js globals like process and __dirname
       },
     },
     rules: {
-      // Unused variable error bondho kora, jodi variable er namer age underscore (_) thake
+      // Allow unused variables if they start with an underscore (_)
       "no-unused-vars": "off",
       "@typescript-eslint/no-unused-vars": [
         "warn",
         {
           argsIgnorePattern: "^_",
           varsIgnorePattern: "^_",
-          caughtErrorsIgnorePattern: "^_"
-        }
+          caughtErrorsIgnorePattern: "^_",
+        },
       ],
-      
-      // warning for console.log 
+
+      // Warn on console statements
       "no-console": "warn",
-      
-      // 'any' type use 
-      "@typescript-eslint/no-explicit-any": "off"
+
+      // Disable 'any' type restriction
+      "@typescript-eslint/no-explicit-any": "off",
     },
   },
 
-  // 5. Prettier config (Sobar last e thakte hobe)
+  // 5. Prettier config (Must be last to override other rules)
   eslintConfigPrettier,
 ];

@@ -2,12 +2,12 @@ import { UserRole, UserStatus } from "@prisma/client";
 import * as bcrypt from "bcryptjs";
 import httpStatus from "http-status";
 import { Secret } from "jsonwebtoken";
-import {config} from "../../../config";
+import { config } from "../../../config";
 import { jwtHelpers } from "../../../helpers/jwtHelpers";
-import {prisma} from "../../../shared/prisma";
+import { prisma } from "../../../shared/prisma";
 import ApiError from "../../errors/ApiError";
 /**
- * AuthService handles all authentication-related business logic, 
+ * AuthService handles all authentication-related business logic,
  * including registration, login, token management, and password recovery.
  */
 import emailSender from "../../utils/emailSender";
@@ -35,7 +35,7 @@ const registerUser = async (payload: any) => {
       name: payload.name,
       role: UserRole.USER,
       status: UserStatus.ACTIVE,
-      isVerified: false, 
+      isVerified: false,
       contactNo: payload.contactNo,
       address: payload.address,
     },
@@ -45,7 +45,7 @@ const registerUser = async (payload: any) => {
   const verifyToken = jwtHelpers.generateToken(
     { email: newUser.email, role: newUser.role, id: newUser.id },
     config.jwt.JWT_SECRET as Secret,
-    "1d" 
+    "1d"
   );
 
   // Send Email
@@ -64,7 +64,7 @@ const registerUser = async (payload: any) => {
   return {
     id: newUser.id,
     email: newUser.email,
-    message: "Registration successful. Please check your email to verify."
+    message: "Registration successful. Please check your email to verify.",
   };
 };
 
@@ -72,7 +72,10 @@ const registerUser = async (payload: any) => {
 const verifyEmail = async (token: string) => {
   let decodedData;
   try {
-    decodedData = jwtHelpers.verifyToken(token, config.jwt.JWT_SECRET as Secret);
+    decodedData = jwtHelpers.verifyToken(
+      token,
+      config.jwt.JWT_SECRET as Secret
+    );
   } catch (_err) {
     throw new ApiError(httpStatus.FORBIDDEN, "Invalid or Expired Token!");
   }
@@ -220,7 +223,10 @@ const forgotPassword = async (payload: { email: string }) => {
 const resetPassword = async (token: string, payload: { password: string }) => {
   let decodedData;
   try {
-    decodedData = jwtHelpers.verifyToken(token, config.jwt.RESET_PASS_SECRET as Secret);
+    decodedData = jwtHelpers.verifyToken(
+      token,
+      config.jwt.RESET_PASS_SECRET as Secret
+    );
   } catch (_err) {
     throw new ApiError(httpStatus.FORBIDDEN, "Expired or Invalid Token");
   }

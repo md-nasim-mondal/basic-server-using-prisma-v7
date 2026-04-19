@@ -56,13 +56,16 @@ const loadEnvVariables = (): EnvConfig => {
       // eslint-disable-next-line no-console
       console.warn(`⚠️ Missing required environment variable: ${key}`);
       if (key === "DATABASE_URL" || key === "JWT_SECRET") {
-        throw new Error(`CRITICAL: Missing required environment variable: ${key}`);
+        throw new Error(
+          `CRITICAL: Missing required environment variable: ${key}`
+        );
       }
     }
   });
 
   return {
-    NODE_ENV: (process.env.NODE_ENV as "development" | "production") || "development",
+    NODE_ENV:
+      (process.env.NODE_ENV as "development" | "production") || "development",
     PORT: process.env.PORT || "5000",
     DATABASE_URL: process.env.DATABASE_URL as string,
     CLIENT_URL: process.env.CLIENT_URL || "http://localhost:3000",
@@ -76,10 +79,12 @@ const loadEnvVariables = (): EnvConfig => {
     jwt: {
       JWT_SECRET: process.env.JWT_SECRET || "secret",
       ACCESS_TOKEN_EXPIRES_IN: process.env.ACCESS_TOKEN_EXPIRES_IN || "1d",
-      REFRESH_TOKEN_SECRET: process.env.REFRESH_TOKEN_SECRET || "refresh-secret",
+      REFRESH_TOKEN_SECRET:
+        process.env.REFRESH_TOKEN_SECRET || "refresh-secret",
       REFRESH_TOKEN_EXPIRES_IN: process.env.REFRESH_TOKEN_EXPIRES_IN || "30d",
       RESET_PASS_SECRET: process.env.RESET_PASS_SECRET || "reset-secret",
-      RESET_PASS_TOKEN_EXPIRES_IN: process.env.RESET_PASS_TOKEN_EXPIRES_IN || "10m",
+      RESET_PASS_TOKEN_EXPIRES_IN:
+        process.env.RESET_PASS_TOKEN_EXPIRES_IN || "10m",
     },
     cloudinary: {
       CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME || "",

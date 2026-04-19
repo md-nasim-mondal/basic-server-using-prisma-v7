@@ -81,12 +81,14 @@ npm start
 ## 🔐 API Endpoints
 
 ### Auth
+
 - `POST /api/v1/auth/register` - Register a new user
 - `POST /api/v1/auth/login` - Login user
 - `POST /api/v1/auth/refresh-token` - Get new access token
 - `POST /api/v1/auth/change-password` - Change password (Auth required)
 
 ### User
+
 - `GET /api/v1/users/me` - Get my profile
 - `PATCH /api/v1/users/update-my-profile` - Update my profile
 - `GET /api/v1/users` - Get all users (Admin only)

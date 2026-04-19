@@ -1,11 +1,17 @@
 import express, { Application, Request, Response } from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import morgan from "morgan";
+import helmet from "helmet";
 import router from "./app/routes";
 import globalErrorHandler from "./app/middlewares/globalErrorHandler";
 import notFound from "./app/middlewares/notFound";
 
 const app: Application = express();
+
+// Security & Logging
+app.use(helmet());
+app.use(morgan("dev"));
 
 // Parsers
 app.use(express.json());
